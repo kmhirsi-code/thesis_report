@@ -13,10 +13,10 @@
 \usepackage[MScThesis,lablogo]{EPFLreport}
 \usepackage{xspace}
 
-\title{A wonderful thesis\\about the merits of scientific writing}
-\author{The Student}
+\title{Adaptive Calibration Algorithms\\for Tunable Analog Peripherals}
+\author{Khalil M'hirsi}
 \supervisor{The Doctoral Student}
-\adviser{Prof. Dr. sc. ETH Mathias Payer}
+\adviser{Prof. Mathieu Salzmann}
 %\coadviser{Second Adviser}
 \expert{The External Reviewer}
 
@@ -28,20 +28,25 @@
 \makeacks
 
 \begin{abstract}
-The \sysname tool enables lateral decomposition of a multi-dimensional
-flux compensator along the timing and space axes.
 
-The abstract serves as an executive summary of your project.
-Your abstract should cover at least the following topics, 1-2 sentences for
-each: what area you are in, the problem you focus on, why existing work is
-insufficient, what the high-level intuition of your work is, maybe a neat
-design or implementation decision, and key results of your evaluation.
+Continuous depth-sensing technologies in modern analog input peripherals offer unprecedented
+hardware fidelity within the realm of high-performance Human-Computer Interaction (HCI).
+However, current implementations rely on static, user-defined actuation thresholds that fail 
+to account for individual biomechanical variance, such as resting tremors, micro-hesitations,
+and physiological degradation due to fatigue. Because these static approaches cannot adapt to
+dynamic player states, they often result in sub-optimal input latency and a high frequency of
+unintended actuations during competitive play. To address this, we propose a personalized, 
+data-driven recommendation system that dynamically tunes Actuation Level (AL) and Rapid Trigger
+(RT) parameters by analyzing continuous raw input telemetry, including actuation trajectory,
+velocity, and resting pressure. \\
+
+By leveraging statistical profiling of professional gamer input 
+signatures and a low-overhead telemetry processing pipeline, our system enables real-time intent
+detection and threshold adaptation without heavy computational overhead. Our evaluation framework
+demonstrates that this dynamic adaptation model successfully minimizes mechanical latency, 
+mitigates the biomechanical impacts of fatigue, and fundamentally optimizes high-performance 
+interaction without introducing computational system lag.
 \end{abstract}
-
-\begin{frenchabstract}
-For a doctoral thesis, you have to provide a French translation of the
-English abstract. For other projects this is optional.
-\end{frenchabstract}
 
 \maketoc
 
@@ -60,6 +65,56 @@ The seventh paragraph will highlight some of your results
 The eights paragraph discusses your core contribution.
 
 This section is usually 3-5 pages.
+
+Human-Computer Interaction (HCI) in high-performance computing and competitive gaming has
+consistently pushed the boundaries of input peripheral design. The advent of continuous
+depth-sensing technologies, such as the Haptic Inductive Trigger System (HITS) found in
+Logitech SUPERSTRIKE PRO X2 switches, provides an unprecedented level of hardware fidelity.
+These analog sensors capture high-resolution, continuous telemetry of a keystroke's trajectory,
+moving beyond the binary constraints of traditional mechanical switches. This evolution in 
+hardware enables granular control over Actuation Levels (AL) and Rapid Trigger (RT) mechanisms,
+fundamentally shifting how user intent is translated into digital actions.
+
+Despite these hardware advancements, the primary challenge lies in the software algorithms 
+tasked with interpreting this continuous telemetry. Currently, analog switches rely heavily 
+on static, user-defined actuation thresholds that remain completely agnostic to the immense 
+biomechanical variance inherent in human movement. Players exhibit unique control signatures, 
+including micro-hesitations, resting tremors, and varying velocity curves during critical 
+gameplay moments. When forced to operate within rigid, predefined hardware boundaries, these 
+biomechanical realities clash with static logic, resulting in sub-optimal input latency, a high
+ frequency of unintended actuations (misclicks), or missed inputs during high-stress scenarios.
+
+Existing research and commercial implementations are largely insufficient because they approach 
+analog actuation as a static problem rather than a dynamic physiological process. While early 
+studies established the historical baseline for continuous-sensor actuation, proving that 
+software-defined actuation points are empirically superior for speed and neuromotor 
+efficiency~\cite{touchpad_comparison}, they do not account for real-time human variance. 
+Advanced intent detection frameworks, such as ReactEMG~\cite{reactemg}, offer zero-shot intent
+prediction but are designed for surface electromyography (sEMG) and are too computationally 
+heavy for switch displacement telemetry. Current implementations simply hand the user a slider,
+failing to provide the algorithmic safeguards or auto-calibration profiles necessary to filter
+out tremors~\cite{dynamic_keyboard} and translate messy, analog finger movements into
+perfectly stable digital clicks.
+
+To bridge this gap, this project proposes an adaptive, personalized data-driven calibration
+system designed to intelligently tune AL and RT parameters based on labeled user intent. 
+By capturing and analyzing continuous raw input telemetry---specifically actuation trajectory, 
+velocity, and resting pressure---we can extract distinct, user-specific control signatures. 
+Our methodology first establishes a gold-standard statistical baseline by analyzing 
+high-fidelity analog profiling of professional gamers, mapping biomechanical intent to specific
+in-game actions much like analyzing staccato and legato strikes in piano
+performance~\cite{piano_3d_force}.
+
+This adaptive approach is fundamentally needed because human biomechanics degrade and shift over
+time, particularly during extended usage. Sustained isometric contractions and cognitive stress cause distinct fatigue signatures in the finger flexor muscles~\cite{fatigue_flexor}, leading to changes in resting weight and "snap-back" velocity. By designing machine learning models and mathematical algorithms capable of identifying these fatigue indicators~\cite{stress_pressure}, the system can dynamically adjust the RT sensitivity and AL hysteresis buffers on the fly. This ensures that the peripheral remains perfectly tuned to the user's physiological state at hour six just as it was at hour one.
+
+The core thesis of this work is that by applying dynamic, real-time intent prediction algorithms
+to continuous analog switch telemetry, we can eliminate the biomechanical friction of static actuation thresholds, achieving personalized, low-latency input that adapts to user fatigue and stress without introducing computational overhead.
+
+Our evaluation demonstrates that shifting from a static threshold paradigm to a dynamic, data-driven calibration model yields significant improvements in both system performance and user experience. By implementing algorithmic noise filtering and tuning the AL and RT points to match the user's physiological profile, the system drastically reduces unintended actuations caused by resting tremors and high-stress scenarios. Furthermore, early performance profiling of low-compute inference models, such as those leveraging Linear Discriminant Analysis~\cite{lda_emg}, indicates that we can achieve sub-millisecond intent detection running directly on the peripheral's microcontroller unit (MCU).
+
+The core contribution of this project is a robust, low-latency telemetry processing architecture
+and a suite of adaptive calibration algorithms capable of bridging the gap between raw continuous depth-sensing hardware and human biomechanical intent. We deliver a functional data collection tool for profiling continuous analog telemetry, an automated recommendation engine for optimal AL and RT settings, and a theoretical framework for real-time fatigue adaptation. Ultimately, this work pioneers a new standard for accessible and dynamically adaptive input peripherals in high-performance HCI environments.
 
 %%%%%%%%%%%%%%%%%%%%
 \chapter{Background}
